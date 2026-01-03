@@ -22,6 +22,7 @@ import {
   SelectValue,
 } from "./ui/select";
 import { Textarea } from "./ui/textarea";
+import { subjects } from "@/constants";
 
 const companionFormSchema = z.object({
   name: z.string().min(1, { message: "Companion is required." }),
@@ -29,14 +30,13 @@ const companionFormSchema = z.object({
   topic: z.string().min(1, { message: "Topic is required." }),
   voice: z.string().min(1, { message: "Voice is required." }),
   style: z.string().min(1, { message: "Style is required." }),
-  duration: z.coerce.number().min(1, { message: "Duration is required." }),
+  duration: z.number().min(1, { message: "Duration is required." }),
 });
 
-type CompanionFormDataInput = z.input<typeof companionFormSchema>;
-type CompanionFormDataOutput = z.infer<typeof companionFormSchema>;
+type CompanionFormData = z.infer<typeof companionFormSchema>;
 
 const CompanionForm = () => {
-  const form = useForm<CompanionFormDataInput, any, CompanionFormDataOutput>({
+  const form = useForm<CompanionFormData>({
     resolver: zodResolver(companionFormSchema),
     defaultValues: {
       name: "",
@@ -48,7 +48,7 @@ const CompanionForm = () => {
     },
   });
 
-  const onSubmit = (data: CompanionFormDataOutput) => {
+  const onSubmit = (data: CompanionFormData) => {
     console.log(data);
   };
 
@@ -181,9 +181,9 @@ const CompanionForm = () => {
               <FormLabel>Estimated session duration in minutes</FormLabel>
               <FormControl>
                 <Input
+                  {...field}
                   type="number"
                   placeholder="15"
-                  {...field}
                   className="input"
                 />
               </FormControl>
