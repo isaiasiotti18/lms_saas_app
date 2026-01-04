@@ -42,13 +42,13 @@ const CompanionCard = ({
           height={13.5}
         />
         <p className="text-sm">{duration} minutes</p>
-
-        <Link href={`/companion/${id}`} className="w-full">
-          <button className="btn-primary w-full justify-center">
-            Launch Lesson
-          </button>
-        </Link>
       </div>
+
+      <Link href={`/companion/${id}`} className="w-full">
+        <button className="btn-primary w-full justify-center">
+          Launch Lesson
+        </button>
+      </Link>
     </article>
   );
 };
